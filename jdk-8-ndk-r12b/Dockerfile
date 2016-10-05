@@ -7,7 +7,7 @@ VOLUME ["/opt/android"]
 # Setup ENV
 ENV ANDROID_HOME /opt/android/sdk
 ENV ANDROID_NDK_HOME /opt/android/ndk-r12b
-ENV ANDROID_NDK ${ANDROID_NDK}
+ENV ANDROID_NDK ${ANDROID_NDK_HOME}
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 # Install libstdc++
