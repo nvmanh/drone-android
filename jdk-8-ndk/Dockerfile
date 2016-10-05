@@ -1,1 +1,1 @@
-jdk-8-ndk-r12b/Dockerfile
+../jdk-8-ndk-r12b/Dockerfile
