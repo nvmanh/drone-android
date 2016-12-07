@@ -38,3 +38,20 @@ RUN echo "y" | android update sdk -u -a --filter ${ANDROID_API_LEVELS} && \
     echo "y" | android update sdk -u -a --filter build-tools-24.0.3 && \
     echo "y" | android update sdk -u -a --filter build-tools-25 && \
     echo "y" | android update sdk -u -a --filter build-tools-25.0.1
+
+# Install Gradle
+RUN mkdir /usr/lib/gradle /app
+ENV GRADLE_VERSION 3.2.1
+ENV GRADLE_HOME /usr/lib/gradle/gradle-${GRADLE_VERSION}
+ENV PATH ${PATH}:${GRADLE_HOME}/bin
+
+WORKDIR /usr/lib/gradle
+
+RUN set -x \
+  && apk add --no-cache wget \
+  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+  && unzip gradle-${GRADLE_VERSION}-bin.zip \
+  && rm gradle-${GRADLE_VERSION}-bin.zip \
+  && apk del wget
+
+RUN apk update && apk add bash libstdc++ && rm -rf /var/cache/apk/*
