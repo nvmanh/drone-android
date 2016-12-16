@@ -20,33 +20,38 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 RUN cd /opt && \
     wget -q ${ANDROID_SDK_URL} && \
     tar -xzf ${ANDROID_SDK_FILENAME} && \
-    rm ${ANDROID_SDK_FILENAME} && \
+    rm ${ANDROID_SDK_FILENAME}
 
 # Update Android SDK
-RUN echo "y" | android update sdk -u -a --filter tools && \
-    echo "y" | android update sdk -u -a --filter platform-tools && \
-    echo "y" | android update sdk -u -a --filter extra-android-support && \
-    echo "y" | android update sdk -u -a --filter extra-android-m2repository && \
-    echo "y" | android update sdk -u -a --filter extra-google-google_play_services && \
-    echo "y" | android update sdk -u -a --filter extra-google-m2repository 
+RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter tools && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter platform-tools && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter extra-android-support && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter extra-android-m2repository && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter extra-google-google_play_services && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter extra-google-m2repository 
 
-RUN echo "y" | android update sdk -u -a --filter ${ANDROID_API_LEVELS} && \
-    echo "y" | android update sdk -u -a --filter build-tools-23.0.2 && \
-    echo "y" | android update sdk -u -a --filter build-tools-23.0.1 && \
-    echo "y" | android update sdk -u -a --filter build-tools-23.0.0 && \
-    echo "y" | android update sdk -u -a --filter build-tools-24.0.1 && \
-    echo "y" | android update sdk -u -a --filter build-tools-24.0.2 && \
-    echo "y" | android update sdk -u -a --filter build-tools-24.0.3 && \
-    echo "y" | android update sdk -u -a --filter build-tools-25 && \
-    echo "y" | android update sdk -u -a --filter build-tools-25.0.1
+RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter ${ANDROID_API_LEVELS} && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-23.0.2 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-23.0.1 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-23.0.0 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-24.0.1 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-24.0.2 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-24.0.3 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-25.0.1 && \
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-25.0.2 
+
+# Install Framgia CLI
+RUN curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-report-tool/master/dist/framgia-ci && \
+    chmod +x /usr/bin/framgia-ci
 
 # Install Gradle
-ARG GRADLE_VERSION=3.2.1
-WORKDIR /usr/bin
-RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
-  unzip gradle-${GRADLE_VERSION}-all.zip && \
-  ln -s gradle-${GRADLE_VERSION} gradle && \
-  rm gradle-${GRADLE_VERSION}-all.zip
+ENV GRADLE_VERSION 3.2.1
+
+RUN cd /usr/bin && \
+    wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
+    unzip gradle-${GRADLE_VERSION}-all.zip && \
+    ln -s gradle-${GRADLE_VERSION} gradle && \
+    rm gradle-${GRADLE_VERSION}-all.zip
 
 ENV GRADLE_HOME /usr/bin/gradle
 ENV PATH $PATH:$GRADLE_HOME/bin
