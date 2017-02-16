@@ -50,13 +50,16 @@ RUN curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-rep
     chmod +x /usr/bin/framgia-ci
 
 # Install Gradle
-ENV GRADLE_VERSION 3.2.1
+ENV GRADLE_VERSION 3.3
 
 RUN cd /usr/bin && \
     wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
     unzip gradle-${GRADLE_VERSION}-all.zip && \
     ln -s gradle-${GRADLE_VERSION} gradle && \
     rm gradle-${GRADLE_VERSION}-all.zip
+
+# Remove Gradle Old Version
+RUN rm -rf /usr/bin/gradle-3.2.1
 
 ENV GRADLE_HOME /usr/bin/gradle
 ENV PATH $PATH:$GRADLE_HOME/bin
