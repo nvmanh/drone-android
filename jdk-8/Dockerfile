@@ -2,6 +2,8 @@ FROM java:openjdk-8-jdk
 
 MAINTAINER haipq7641@gmail.com
 
+VOLUME ["/opt/android"]
+
 # Installs i386 architecture required for running 32 bit Android tools
 RUN dpkg --add-architecture i386 && \
     apt-get update -y && \
@@ -15,12 +17,19 @@ ENV ANDROID_SDK_FILENAME android-sdk_r24.4.1-linux.tgz
 ENV ANDROID_SDK_URL http://dl.google.com/android/${ANDROID_SDK_FILENAME}
 ENV ANDROID_API_LEVELS android-23,android-24,android-25  
 ENV ANDROID_HOME /opt/android-sdk-linux
+#ENV ANDROID_HOME /home/likewise-open/FRAMGIA/nguyen.viet.manh/Android/Sdk
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
 
 RUN cd /opt && \
     wget -q ${ANDROID_SDK_URL} && \
     tar -xzf ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME}
+
+#RUN cd /home/likewise-open/FRAMGIA/nguyen.viet.manh/Android && \
+#    wget -q ${ANDROID_SDK_URL} && \
+#    tar -xzf ${ANDROID_SDK_FILENAME} && \
+#    rm ${ANDROID_SDK_FILENAME}
 
 # Update Android SDK
 RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter tools && \
@@ -44,6 +53,7 @@ RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u
 
 # Update Android licenses
 COPY licenses /opt/android-sdk-linux/licenses
+#COPY /home/likewise-open/FRAMGIA/nguyen.viet.manh/Android/Sdk/licenses
 
 # Install Framgia CLI
 RUN curl -o /usr/bin/framgia-ci https://raw.githubusercontent.com/framgia/ci-report-tool/master/dist/framgia-ci && \
