@@ -82,7 +82,7 @@ RUN ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u
     ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -u -a --filter build-tools-25.0.2 
 
 # Update Android licenses
-COPY licenses /opt/android-sdk-linux/licenses
+COPY ../licenses /opt/android-sdk-linux/licenses
 #COPY /home/likewise-open/FRAMGIA/nguyen.viet.manh/Android/Sdk/licenses
 
 # Install Framgia CLI
