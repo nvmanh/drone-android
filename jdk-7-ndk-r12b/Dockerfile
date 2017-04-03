@@ -1,4 +1,4 @@
-FROM java:openjdk-7-alpine
+FROM java:openjdk-7-jdk
 
 MAINTAINER haipq7641@gmail.com
 
