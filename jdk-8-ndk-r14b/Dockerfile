@@ -15,7 +15,8 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 # ------------------------------------------------------
 # --- Install required tools
 
-RUN apt-get update -qq
+#RUN apt-get update -qq
+RUN apt-get update
 
 
 # ------------------------------------------------------
